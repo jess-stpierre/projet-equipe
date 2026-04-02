@@ -8,7 +8,8 @@
         <div class="image-container">
           <img :src="wine.image" class="image" />
           <div class="price">{{ wine.price }} $
-            <button class="btn fixed-btn" @click="addToCart">Ajouter au cellier</button>
+            <p class="litre">{{ wine.litre }}ml</p>
+              <button class="btn fixed-btn" @click="addToCart">Ajouter au cellier</button>
           </div>
         </div>
 

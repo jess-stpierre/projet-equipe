@@ -7,10 +7,6 @@ body {
   margin-inline: 120px;
 }
 
-.home {
-  margin-top: 60px;
-}
-
 :root {
   /* Couleurs*/
   --gris-clair: #efefef;

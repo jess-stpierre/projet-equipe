@@ -1,13 +1,14 @@
 <template>
     <div class="home">
-      <div class="filtre">
-        <div class="alignement">
+      <h2>Catalogue</h2>
+      <!-- <div class="filtre"> -->
+        <!-- <div class="alignement">
           <button class="filte-button" @click="toggleFilter">
             <span class="filte-icon">☰</span> Filtres
           </button>
 
           <h1 class="title">Catalogue SAQ</h1>
-        </div>
+        </div> -->
 
         <!-- <div
           class="filtre-ouvrir"
@@ -73,7 +74,7 @@
             />
           </ul>
         </aside> -->
-      </div>
+      <!-- </div> -->
 
       <WineGrid v-if="!loading" :wines="wines" @add-to-cart="handleAddToCart" />
 
