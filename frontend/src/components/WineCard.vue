@@ -1,43 +1,34 @@
 <template>
     <div class="card">
       <div class="media">
-        <!-- <div class="badge media" :style="{ background: badge.color }"> -->
-        <!-- {{ badge.text }} -->
-        <!-- </div> -->
-
         <div class="image-container">
-          <img :src="wine.image" class="image" />
-          <div class="price">{{ wine.price }} $
-            <p class="litre">{{ wine.litre }}ml</p>
-              <button class="btn fixed-btn" @click="addToCart">Ajouter au cellier</button>
+          <img :src="vin.image" class="image" :alt="vin.name"/>
+          <div class="price">{{ vin.price }} $
+            <p class="litre">{{ vin.litre }}ml</p>
           </div>
         </div>
 
         <div class="content">
-          <h2 class="name">{{ wine.name }}</h2>
-          <!-- <h2 class="code_SAQ">Code SAQ : {{ wine.sku }}</h2> -->
-          <p class="meta">{{ wine.country }}</p>
+          <h2 class="name">{{ vin.name }}</h2>
+          <p class="meta">{{ vin.country }}</p>
           <p class="meta couleur">
-            {{ wine.couleur }}
+            {{ vin.couleur }}
             <span
               class="color-dot"
-              :style="{ backgroundColor: getColor(wine.couleur) }"
+              :style="{ backgroundColor: getColor(vin.couleur) }"
             ></span>
           </p>
+          <button class="btn fixed-btn" @click="addToCart">Ajouter au cellier</button>
         </div>
       </div>
       <div class="hover-info" :class="{ active: showInfo }">
-        <button class="close-btn" @click="toggleInfo">
-          <!-- <i class="fa-regular fa-rectangle-xmark"></i> -->
-        </button>
         <div class="info-media">
-          <p>Région : {{ wine.region }}</p>
-          <p>Cépage : {{ wine.grape }}</p>
+          <p>Région : {{ vin.region }}</p>
+          <p>Cépage : {{ vin.grape }}</p>
           <p>Alcool : {{ formattedAlcohol }} %</p>
-          <p>Sucre : {{ wine.sugar }}</p>
-          <!-- <p>Format : {{ wine.litre }} ml</p> -->
+          <p>Sucre : {{ vin.sugar }}</p>
           <!-- <p>Producteur : {{ wine.producer }}</p> -->
-          <p>Millésime : {{ wine.millesime }}</p>
+          <p>Millésime : {{ vin.millesime }}</p>
         </div>
       </div>
 
@@ -45,14 +36,13 @@
         ↑
         <span class="info-fleche">Infos</span>
       </button>
-
-
     </div>
-  </template>
-  <script>
+</template>
+
+<script>
   export default {
     props: {
-      wine: Object,
+      vin: Object,
     },
 
     data() {
@@ -63,13 +53,13 @@
 
     computed: {
       badge() {
-        return this.getBadge(this.wine);
+        return this.getBadge(this.vin);
       },
 
       formattedAlcohol() {
-        if (!this.wine.alcohol) return "-";
-        const num = parseFloat(this.wine.alcohol);
-        if (isNaN(num)) return this.wine.alcohol;
+        if (!this.vin.alcohol) return "-";
+        const num = parseFloat(this.vin.alcohol);
+        if (isNaN(num)) return this.vin.alcohol;
         return num.toFixed(2);
       },
     },
@@ -93,8 +83,8 @@
         this.showInfo = !this.showInfo;
       },
 
-      getBadge(wine) {
-        const name = wine.name.toLowerCase();
+      getBadge(vin) {
+        const name = vin.name.toLowerCase();
 
         if (name.includes("malbec")) {
           return { text: "DÉLICAT ET LÉGER", color: "#8b0000" };
@@ -115,9 +105,9 @@
         return { text: "AROMATIQUE ET ROND", color: "#c0392b" };
       },
       addToCart() {
-        this.$emit("add-to-cart", this.wine);
+        this.$emit("add-to-cart", this.vin);
         this.$router.push("/cart");
       },
     },
   };
-  </script>
+</script>

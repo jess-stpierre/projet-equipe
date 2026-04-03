@@ -1,9 +1,9 @@
 <template>
     <div class="grid">
       <WineCard
-        v-for="wine in wines"
-        :key="wine.id"
-        :wine="wine"
+        v-for="vin in wines"
+        :key="vin.id"
+        :vin="vin"
         @add-to-cart="addToCart"
       />
     </div>
@@ -22,8 +22,8 @@
     },
     data() {},
     methods: {
-      addToCart(wine) {
-        this.$emit("add-to-cart", wine);
+      addToCart(vin) {
+        this.$emit("add-to-cart", vin);
       },
     },
   };

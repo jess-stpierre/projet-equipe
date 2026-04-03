@@ -89,9 +89,9 @@
         @changePerPage="changePerPage"
       /> -->
     </div>
-  </template>
+</template>
 
-  <script>
+<script>
   import { useWineStore } from "../stores/wineStore";
   import WineGrid from "../components/WineGrid.vue";
   // import Pagination from "../components/Pagination.vue";
@@ -244,4 +244,4 @@
       await this.fetchWines();
     },
   };
-  </script>
+</script>
