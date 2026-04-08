@@ -1,4 +1,5 @@
 <template>
+  <Navbar />
   <div class="home">
     <h2>Catalogue</h2>
     <!-- <div class="filtre"> -->
@@ -78,30 +79,31 @@
 
     <WineGrid v-if="!loading" :vins="vins" @ajout-du-vin="ajoutDuVin" />
 
-    <!-- <Pagination
-        v-if="!loading && totalPages > 1"
-        :page="page"
-        :totalPages="totalPages"
-        :perPage="perPage"
-        @changePage="goToPage"
-        @next="nextPage"
-        @prev="prevPage"
-        @changePerPage="changePerPage"
-      /> -->
+    <Pagination
+      v-if="!loading && totalPages > 1"
+      :page="page"
+      :totalPages="totalPages"
+      :perPage="perPage"
+      @next="nextPage"
+      @prev="prevPage"
+      @changePerPage="changePerPage"
+    />
   </div>
 </template>
 
 <script>
 import { useWineStore } from "../stores/wineStore";
 import WineGrid from "../components/WineGrid.vue";
-// import Pagination from "../components/Pagination.vue";
+import Navbar from "../components/Navbar.vue";
+import Pagination from "../components/Pagination.vue";
 // import FilterSection from "../components/FilterSelection.vue";
 // import ColorFilter from "../components/ColorFilter.vue";
 
 export default {
   components: {
     WineGrid,
-    // Pagination,
+    Navbar,
+    Pagination,
     // FilterSection,
     // ColorFilter,
   },
