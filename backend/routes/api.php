@@ -34,4 +34,5 @@ Route::middleware('web')->group(function () {
 
     // Routes pour la gestion des celliers    
     Route::post('/creer-cellier', [CellierController::class, 'store']);
+    Route::get('/celliers', [CellierController::class, 'index']);
 });
