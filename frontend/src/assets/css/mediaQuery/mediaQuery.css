@@ -19,9 +19,9 @@
     font-size: var(--fs-14);
   }
 
-  .logo img {
+  /* .logo img {
     height: 30px;
-  }
+  } */
 
   .media {
     display: flex;
@@ -305,6 +305,7 @@
     flex-wrap: wrap;
     gap: var(--espace-moyen);
   }
+
   .image-conteneur {
     width: 55px;
   }

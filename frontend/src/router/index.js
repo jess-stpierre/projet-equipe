@@ -43,12 +43,13 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/:pathMatch(.*)*",
-    redirect: "/connexion-usager",
-  },
-  {
     path: "/creer-cellier",
     component: CreationCellier,
+  },
+  // redirige les URL non reconnu (dans notre code) pour /connexion-usager
+  {
+    path: "/:pathMatch(.*)*",
+    redirect: "/connexion-usager",
   },
 ];
 
@@ -62,12 +63,11 @@ const router = createRouter({
 // from: l'usager vient d'ou
 // next(): pour continuer la navigation
 router.beforeEach(async (to, from, next) => {
-
   const authStore = useAuthStore();
 
   //verifie si fetchUsager est en cours grace a authStore.loading, et rejoue la verification pour vraiment voir si l'usager est null ou pas
   if (authStore.loading) {
-    await authStore.waitForLoadingToFinish();
+    await new Promise((resolve) => setTimeout(resolve, 50));
     return next(to);
   }
 
@@ -76,8 +76,8 @@ router.beforeEach(async (to, from, next) => {
     await authStore.fetchUsager();
   }
 
-    // verifier si un Usager est connecter: authStore contient .usager et un objet qui a un proprieter (id / courriel / mot de passe)
-    const estConnecter =
+  // verifier si un Usager est connecter: authStore contient .usager et un objet qui a un proprieter (id / courriel / mot de passe)
+  const estConnecter =
     authStore.usager &&
     typeof authStore.usager === "object" &&
     Object.keys(authStore.usager).length > 0;
