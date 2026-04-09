@@ -1,7 +1,7 @@
 <template>
   <Navbar />
   <div class="home">
-    <h2>Catalogue</h2>
+    <h2 class="h2">Catalogue</h2>
     <!-- <div class="filtre"> -->
     <!-- <div class="alignement">
           <button class="filte-button" @click="toggleFilter">

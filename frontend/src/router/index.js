@@ -16,11 +16,11 @@ const routes = [
     path: "/",
     component: ConnexionUsager,
   },
-  {
-    path: "/liste-achats",
-    component: Cart,
-    meta: { requiresAuth: true },
-  },
+  // {
+  //   path: "/liste-achats",
+  //   component: Cart,
+  //   meta: { requiresAuth: true },
+  // },
   {
     path: "/connexion-usager",
     component: ConnexionUsager,
