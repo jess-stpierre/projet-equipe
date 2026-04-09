@@ -23,8 +23,8 @@ Route::put('/usagers/{id}', [UsagerController::class, 'update']);
 Route::get('/usagers/{id}', [UsagerController::class, 'show']);
 Route::delete('/supprimer-cellier/{cellier}', [CellierController::class, 'destroy']);
 
+// route publique pour la création d'usager
 Route::middleware('web')->group(function () {
-
     //Route pour la connexion et deconnexion
     Route::post('/', [AuthController::class, 'store'])->name('connexion-usager');
     Route::post('/deconnexion', [AuthController::class, 'destroy'])->name('deconnexion');
@@ -32,17 +32,22 @@ Route::middleware('web')->group(function () {
         return response()->json(['csrf_token' => csrf_token()]);
     });
 
-    Route::get('/afficher-usager', [UsagerController::class, 'afficherUsager']);
-    Route::delete('/supprimer-usager', [UsagerController::class, 'supprimerUsager']);
-
     // Route pour verifier si un usager est connecter
     Route::get('/usager', function () {
         $usager = auth()->user();
         return $usager ? response()->json($usager) : response()->json(null);
     });
+});
+
+// Routes protégées par l'authentification
+Route::middleware(['web', 'auth'])->group(function () {
+    // Routes pour la gestion des usagers
+    Route::get('/afficher-usager', [UsagerController::class, 'afficherUsager']);
+    Route::delete('/supprimer-usager', [UsagerController::class, 'supprimerUsager']);
 
     // Routes pour la gestion des celliers
     Route::post('/creer-cellier', [CellierController::class, 'store']);
+    Route::put('/modifier-cellier/{id}', [CellierController::class, 'update']);
     Route::get('/celliers', [CellierController::class, 'index']);
     // Route::delete('/supprimer-cellier/{cellier}', [CellierController::class, 'destroy']);
 

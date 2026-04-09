@@ -15,6 +15,7 @@
     </div>
 
     <div class="bouton-celleir">
+
       <button
         class="btn btn-cellier"
         @click="$emit('ouvrir-modale', cellier.id)"
@@ -22,6 +23,10 @@
         <Trash class="icons" />
       </button>
       <button class="btn btn-cellier"><PencilLine class="icons" /></button>
+      <button class="btn btn-cellier" @click="modifierCellier">
+        <PencilLine class="icons" />
+      </button>
+
     </div>
   </div>
 </template>
@@ -37,6 +42,21 @@ export default {
   props: {
     cellier: Object,
   },
-  // return() {},
+
+  data() {
+    return {
+      erreur: "",
+    };
+  },
+  methods: {
+    async modifierCellier() {
+      try {
+        this.$router.push(`/modifier-cellier/${this.cellier.id}`);
+      } catch (erreur) {
+        this.erreur = "Erreur lors de la modification";
+      }
+    },
+  },
+
 };
 </script>
