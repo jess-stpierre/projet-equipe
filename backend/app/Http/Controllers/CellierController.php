@@ -87,6 +87,7 @@ class CellierController extends Controller
      */
     public function destroy(Cellier $cellier)
     {
-        //
+        $cellier->delete();
+        return response()->json(['message' => 'Cellier supprimé avec succès']);
     }
 }
