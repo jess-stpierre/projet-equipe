@@ -5,7 +5,6 @@
         <img :src="vin.image_url" class="image" :alt="vin.name" />
         <div class="prix">
           {{ vin.prix }}$
-          <p class="litre">{{ vin.format }}ml</p>
         </div>
       </div>
 
@@ -19,9 +18,9 @@
             :style="{ backgroundColor: chercherCouleur(vin.couleur) }"
           ></span>
         </p>
-        <button class="btn fixed-btn" @click="ajoutDuVin">
+        <!-- <button class="btn fixed-btn" @click="ajoutDuVin">
           Ajouter au cellier
-        </button>
+        </button> -->
       </div>
     </div>
     <div class="hover-info" :class="{ active: montrerInfo }">

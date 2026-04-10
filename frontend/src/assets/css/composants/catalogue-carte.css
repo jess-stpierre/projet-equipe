@@ -101,7 +101,7 @@
   opacity: 0;
   transition: all 0.4s ease;
   z-index: 2;
-  margin-left: var(--fs-16);
+  margin-left: var(--fs-22);
 }
 
 .hover-info.active {
@@ -132,6 +132,10 @@
   font-weight: 700;
 }
 
+.info-btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
 .hover-info {
   pointer-events: none;
 }
@@ -154,13 +158,6 @@
 .fixed-btn {
   height: var(--espace-gros);
   overflow: hidden;
-}
-
-.litre {
-  margin-top: var(--espace-moyen-petit);
-  font-size: var(--fs-14);
-  font-weight: 200;
-  color: var(--noir-profond);
 }
 
 .info-fleche {

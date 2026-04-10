@@ -50,7 +50,8 @@
     flex-direction: column;
     margin-top: var(--espace-gros);
     gap: var(--espace-moyen-neg);
-
+    margin-top: 55px;
+    margin-left: 5px;
   }
 
   .info-media p {
@@ -64,6 +65,10 @@
 
   .image-conteneur {
     width: var(--espace-enorme);
+  }
+
+  .espace-catalogue {
+    padding-bottom: var(--espace-gros-plus);
   }
 }
 
@@ -133,7 +138,7 @@
   }
 
   .catalogue-carte {
-    min-width: 270px;
+    min-width: 320px;
     margin: var(--espace-zero) auto;
   }
 
@@ -144,8 +149,9 @@
   .info-media {
     display: flex;
     flex-direction: column;
-    margin-top: var(--espace-gros);
     gap: var(--espace-moyen-neg);
+    margin-top: 55px;
+    margin-left: 5px;
   }
 
   .alignement {
@@ -204,9 +210,9 @@
   }
 
   .catalogue-carte {
-    max-width: 250px;
+    max-width: 290px;
     margin: auto;
-    min-width: 250px;
+    min-width: 290px;
     max-height: 135px;
   }
 
@@ -217,8 +223,9 @@
   .info-media {
     display: flex;
     flex-direction: column;
-    margin-top: 45px;
     gap: var(--espace-moyen-neg);
+    margin-top: 55px;
+    margin-left: 5px;
   }
 
   .alignement {
