@@ -1,10 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "../stores/auth.js";
-
 import CreationUsager from "../pages/usager/CreationUsager.vue";
 import ModifierUsager from "../pages/usager/ModifierUsager.vue";
 import Home from "../pages/Home.vue";
-import Cart from "../pages/Cart.vue";
 import ConnexionUsager from "../pages/usager/ConnexionUsager.vue";
 import ProfilUsager from "../pages/usager/ProfilUsager.vue";
 import CreerCellier from "../pages/cellier/CreerCellier.vue";
@@ -16,11 +14,7 @@ const routes = [
     path: "/",
     component: ConnexionUsager,
   },
-  // {
-  //   path: "/liste-achats",
-  //   component: Cart,
-  //   meta: { requiresAuth: true },
-  // },
+
   {
     path: "/connexion-usager",
     component: ConnexionUsager,
