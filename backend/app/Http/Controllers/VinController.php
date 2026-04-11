@@ -23,77 +23,14 @@ class VinController extends Controller
     {
         $page = (int) $request->get('page', 1);
         $perPage = (int) $request->get('per_page', 12);
-        $filters = $request->get('filters', []);
 
         $query = Vin::query();
 
-        if (!empty($filters['countries'])) {
-            $query->whereIn('pays', $filters['countries']);
-        }
-
-        if (!empty($filters['regions'])) {
-            $query->where(function ($q) use ($filters) {
-                foreach ($filters['regions'] as $region) {
-                    $q->orWhere('region', 'like', "%$region%");
-                }
-            });
-        }
-
-        if (!empty($filters['cepages'])) {
-            $query->where(function ($q) use ($filters) {
-                foreach ($filters['cepages'] as $cepage) {
-                    $q->orWhere('cepage', 'like', "%$cepage%");
-                }
-            });
-        }
-
-        if (!empty($filters['prix'])) {
-            $query->where(function ($q) use ($filters) {
-                foreach ($filters['prix'] as $prix) {
-                    if (is_string($prix) && str_contains($prix, '-')) {
-                        [$min, $max] = explode('-', $prix);
-                        $q->orWhereBetween('prix', [(float)$min, (float)$max]);
-                    } else {
-                        $q->orWhere('prix', (float)$prix);
-                    }
-                }
-            });
-        }
-
-        if (!empty($filters['formats'])) {
-            $query->whereIn('litre', $filters['formats']);
-        }
-
-        if (!empty($filters['degres'])) {
-            $query->whereIn('degre_alcool', array_map('floatval', $filters['degres']));
-        }
-
-        if (!empty($filters['millesimes'])) {
-            $query->whereIn('annee', $filters['millesimes']);
-        }
-
-        if (!empty($filters['couleur'])) {
-            $query->whereIn('couleur', $filters['couleur']);
-        }
-
         $wines = $query->paginate($perPage, ['*'], 'page', $page);
-
-        $allFilters = [
-            'countries' => Vin::distinct()->pluck('pays')->filter()->values(),
-            'regions' => Vin::distinct()->pluck('region')->filter()->values(),
-            'cepages' => Vin::distinct()->pluck('cepage')->filter()->values(),
-            'prix' => Vin::distinct()->pluck('prix')->filter()->values(),
-
-            'formats' => Vin::distinct()->pluck('format')->filter()->values(),
-            'degres' => Vin::distinct()->pluck('degre_alcool')->filter()->values(),
-            'millesimes' => Vin::distinct()->pluck('annee')->filter()->values(),
-            'couleur' => Vin::distinct()->pluck('couleur')->filter()->values(),
-        ];
 
         return response()->json([
             'data' => $wines->items(),
             'total' => $wines->total(),
-            'filters' => $allFilters,
         ]);
     }
 
@@ -131,33 +68,33 @@ class VinController extends Controller
     public function store(SAQService $service)
     {
         $total = $service->getWines()['total'];
-        $pages =  (int)ceil($total/100);
+        $pages =  (int)ceil($total / 100);
         set_time_limit(240); // Augmente le temps d'attente
-        if($pages || $pages !== 0){        
-            for($i = 1; $i <= $pages; $i++){
+        if ($pages || $pages !== 0) {
+            for ($i = 1; $i <= $pages; $i++) {
                 $bouteilles = $this->getVinsSaq($service, $i);
                 foreach ($bouteilles as $bouteille) {
                     Vin::updateOrCreate(
                         ['sku' => $bouteille['saq_id']],
                         [
-                        'nom' => $bouteille['nom']?? 'Nom inconnu',
-                        'prix' => $bouteille['prix']?? 0,
-                        'pays' => $bouteille['pays']?? null,
-                        'region' => $bouteille['region']?? null,
-                        'cepage' => $bouteille['cepage']?? null,
-                        'degre_alcool' => $bouteille['degre_alcool']?? null,
-                        'taux_sucre' => $bouteille['taux_sucre']?? null,
-                        'format' => $bouteille['format']?? null,
-                        'annee' => $bouteille['annee']?? null,
-                        'image_url' => $bouteille['image_url']?? null,
-                        'couleur' => $bouteille['couleur']?? null
+                            'nom' => $bouteille['nom'] ?? 'Nom inconnu',
+                            'prix' => $bouteille['prix'] ?? 0,
+                            'pays' => $bouteille['pays'] ?? null,
+                            'region' => $bouteille['region'] ?? null,
+                            'cepage' => $bouteille['cepage'] ?? null,
+                            'degre_alcool' => $bouteille['degre_alcool'] ?? null,
+                            'taux_sucre' => $bouteille['taux_sucre'] ?? null,
+                            'format' => $bouteille['format'] ?? null,
+                            'annee' => $bouteille['annee'] ?? null,
+                            'image_url' => $bouteille['image_url'] ?? null,
+                            'couleur' => $bouteille['couleur'] ?? null
                         ]
                     );
-                } 
+                }
             }
-        }else{
+        } else {
             return "Données sont corrompues";
-        }       
+        }
         return "Importation est terminée";
     }
 }

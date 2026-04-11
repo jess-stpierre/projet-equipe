@@ -3,9 +3,7 @@
     <div class="media">
       <div class="image-conteneur">
         <img :src="vin.image_url" class="image" :alt="vin.name" />
-        <div class="prix">
-          {{ vin.prix }}$
-        </div>
+        <div class="prix">{{ vin.prix }}$</div>
       </div>
 
       <div class="contenu">
@@ -18,9 +16,6 @@
             :style="{ backgroundColor: chercherCouleur(vin.couleur) }"
           ></span>
         </p>
-        <!-- <button class="btn fixed-btn" @click="ajoutDuVin">
-          Ajouter au cellier
-        </button> -->
       </div>
     </div>
     <div class="hover-info" :class="{ active: montrerInfo }">
@@ -34,7 +29,7 @@
     </div>
 
     <button class="info-btn" @click.stop="toggleInfo">
-      ↑
+      {{ montrerInfo ? "↓" : "↑" }}
       <span class="info-fleche">Infos</span>
     </button>
   </div>
@@ -104,10 +99,6 @@ export default {
       }
 
       return { text: "AROMATIQUE ET ROND", color: "#c0392b" };
-    },
-    ajoutDuVin() {
-      this.$emit("ajout-du-vin", this.vin);
-      this.$router.push("/liste-achats");
     },
   },
 };
