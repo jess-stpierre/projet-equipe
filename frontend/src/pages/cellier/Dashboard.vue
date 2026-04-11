@@ -29,6 +29,7 @@
 
 <script>
 import axios from "axios";
+import api, { fetchCsrfToken } from "../../api";
 import Cellier from "../../components/Cellier.vue";
 import { Plus } from "lucide-vue-next";
 import Navbar from "../../components/Navbar.vue";
@@ -71,10 +72,9 @@ export default {
     },
     async confirmerSuppression() {
       try {
+        await fetchCsrfToken();
         // on attend que la requête DELETE se termine
-        await axios.delete(
-          `http://127.0.0.1:8000/api/supprimer-cellier/${this.idASupprimer}`,
-        );
+        await api.delete(`/supprimer-cellier/${this.idASupprimer}`);
 
         // mettre à jour la liste des celliers
         this.celliers = this.celliers.filter((c) => c.id !== this.idASupprimer);
