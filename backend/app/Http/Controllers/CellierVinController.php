@@ -35,7 +35,14 @@ class CellierVinController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * La méthode affiche les détails d'une bouteill spécifique appartenant a l'usager connecté
+     * La méthode récupére une entrée de la table 'cellier_vins' en fonction de son id
+     * en incluant les relations avec le la table vin et la table cellier
+     * ELle vérifie également que la bouteille appartient bien a un cellier associé a l'uager actuellement 
+     * connecté
+     * Elle retourne les informations détaillées de la bouteille sous forme de JSON
+     * @param int  $id de la boouteille dans le cellier
+     * @return JSON
      */
 
     public function show($id)
