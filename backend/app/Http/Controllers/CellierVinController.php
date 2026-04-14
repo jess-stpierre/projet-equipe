@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\CellierVin;
 use Illuminate\Http\Request;
 
-use function Laravel\Prompts\select;
 
 class CellierVinController extends Controller
 {
@@ -35,15 +34,15 @@ class CellierVinController extends Controller
             [
                 'cellier_id' => 'required|exists:celliers,id',
                 'vin_id' =>     'required|exists:vins,id',
-                'quantite' => 'required|min:1',
+                'quantite' => 'required|integer|min:1',
             ],
             [
                 'cellier_id.required' => 'Le nom du cellier est obligatoire.',
                 'cellier_id.exists' => 'Le cellier sélectionné est invalide.',
                 'vin_id.required' => 'Le nom du vin est obligatoire.',
                 'vin_id.exists' => 'Le vin sélectionné est invalide.',
-                'quantite.required' => 'La quantite est obligatoire.',
-                'quantite.min' => 'La quantité doit être supérieure à zéro .'
+                'quantite.required' => 'La quantité est obligatoire.',
+                'quantite.min' => 'La quantité doit être au moins 1.',
             ]
         );
 
