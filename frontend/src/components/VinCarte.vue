@@ -66,7 +66,7 @@ export default {
     },
 
     retour() {
-      this.$router.push("/dashboard/");
+      this.$router.push(`/detail-cellier/${this.bouteilleVin.cellier_id}`);
     },
   },
 };

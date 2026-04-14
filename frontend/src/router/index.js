@@ -69,11 +69,7 @@ const routes = [
     component: DetailCellier,
     meta: { requiresAuth: true },
   },
-  {
-    path: "/dashboard",
-    component: Dashboard,
-    meta: { requiresAuth: true },
-  },
+
   // redirige les URL non reconnu (dans notre code) pour /connexion-usager
   {
     path: "/:pathMatch(.*)*",

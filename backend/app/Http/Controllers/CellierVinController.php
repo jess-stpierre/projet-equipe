@@ -14,7 +14,7 @@ class CellierVinController extends Controller
     /**
      * Envoy le cellier avec les vins dans le cellier au frontend
      * @param int $id du cellierVin dans la table
-     * @return JSON
+     * @return json
      */
     public function index($id)
     {
@@ -118,6 +118,7 @@ class CellierVinController extends Controller
 
         return response()->json([
             'id' => $cellierVin->id,
+            'cellier_id' => $cellierVin->cellier->id,
             'nom' => $cellierVin->vin->nom,
             'prix' => $cellierVin->vin->prix,
             'pays' => $cellierVin->vin->pays,

@@ -24,11 +24,9 @@
 
 .vin-carte,
 .vin-infos {
-  width: 100%;
   background: var(--blanc-clair);
-  margin-inline: -10px;
-  padding: 10px;
-  border: 1px solid var(--gris-clair);
+  padding-left: 10px;
+  border: 1px solid var(--gris-moyen);
   border-radius: 5px;
 }
 
@@ -39,6 +37,7 @@
 .vin-infos {
   margin-top: 15px;
   overflow: visible;
+  padding-left: 10px;
 }
 .vin-entete {
   height: 260px;
@@ -53,7 +52,6 @@
 .vin-bg {
   position: absolute;
   inset: 0;
-  background: url("../../img/vignoble.png") center/cover no-repeat;
   filter: brightness(0.85);
 }
 
@@ -98,7 +96,8 @@
   position: absolute;
   top: 45px;
   left: 15px;
-  background: var(--blanc-clair);
+  background: var(--bordeau-profond);
+  color: var(--blanc-clair);
   padding: 8px 12px;
   border-radius: 10px;
   z-index: 3;
@@ -142,8 +141,7 @@
   color: var(--gris-moyen);
 }
 .vin-prix {
-  background: var(--rouge-vin-profond);
-  color: var(--blanc-clair);
+  color: var(--noir-profond);
   padding: 8px 14px;
   border-radius: 10px;
   font-weight: bold;
