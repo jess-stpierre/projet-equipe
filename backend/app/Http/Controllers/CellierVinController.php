@@ -10,7 +10,7 @@ use App\Models\Cellier;
 class CellierVinController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Envoy le cellier avec les vins dans le cellier au frontend
      */
     public function index($id)
     {
@@ -29,7 +29,7 @@ class CellierVinController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     *
      */
     public function create()
     {
@@ -37,7 +37,7 @@ class CellierVinController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     *
      */
     public function store(Request $request)
     {
@@ -84,7 +84,7 @@ class CellierVinController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     *
      */
     public function show(CellierVin $cellierVin)
     {
@@ -92,7 +92,7 @@ class CellierVinController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     *
      */
     public function edit(CellierVin $cellierVin)
     {
@@ -100,7 +100,7 @@ class CellierVinController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     *
      */
     public function update(Request $request, CellierVin $cellierVin)
     {
@@ -108,7 +108,7 @@ class CellierVinController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     *
      */
     public function destroy(CellierVin $cellierVin)
     {
