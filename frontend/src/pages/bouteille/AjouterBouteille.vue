@@ -17,8 +17,8 @@
           {{ cellier.nom }}
         </option>
       </select>
-      <div v-if="erreurs.id" class="erreur">
-        {{ erreurs.nom[0] }}
+      <div v-if="erreurs.cellier_id" class="erreur">
+        {{ erreurs.cellier_id[0] }}
       </div>
       <label>Quantité de bouteilles </label>
       <input
@@ -28,7 +28,7 @@
         placeholder="0"
       />
       <div v-if="erreurs.quantite" class="erreur">
-        {{ erreurs.nom[0] }}
+        {{ erreurs.quantite[0] }}
       </div>
       <button type="submit" class="signup-btn btn">Enregistrer</button>
       <div v-if="message" class="erreur">
@@ -97,9 +97,10 @@ export default {
       } catch (erreur) {
         if (erreur.response.data.errors) {
           this.erreurs = erreur.response.data.errors;
-        }
-        if (erreur.response.data.message) {
-          this.message = erreur.response.data.message;
+        } else {
+          if (erreur.response.data.message) {
+            this.message = erreur.response.data.message;
+          }
         }
       }
     },
