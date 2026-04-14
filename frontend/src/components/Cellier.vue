@@ -1,15 +1,15 @@
 <template>
   <div class="nom-cellier">
-    <div class="cellier-item">
-      <div>
+    <router-link :to="`/detail-cellier/${cellier.id}`" class="cellier-item">
+      <div class="vin-cellier-carte">
         <img
           src="../../public/bouteille.png"
           alt="bouteille"
           class="cellier-img"
         />
-        <router-link :to="`/detail-cellier/${cellier.id}`" class="cellier-nom">{{ cellier.nom }}</router-link>
+        <div class="cellier-nom">{{ cellier.nom }}</div>
       </div>
-    </div>
+    </router-link>
 
     <div class="bouton-celleir">
       <button
