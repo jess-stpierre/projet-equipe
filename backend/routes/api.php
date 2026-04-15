@@ -64,4 +64,7 @@ Route::middleware(['web', 'auth'])->group(function () {
 
     //Recherche bouteille dans les celliers
     Route::get('/bouteilles', [CellierController::class, 'bouteillesUsager']);
+
+    //Filtrer les bouteilles du catalogue
+    Route::get('/vins', [VinController::class, 'index']);
 });
