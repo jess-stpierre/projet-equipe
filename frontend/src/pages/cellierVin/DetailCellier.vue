@@ -4,7 +4,15 @@
   <div class="banniere">
     <h1 class="banniere-titre">Cellier: {{ cellierNom }}</h1>
   </div>
-
+  <div>
+    <router-link
+      class="cellier-lien-ajout-bouteille"
+      :to="`/bouteille/AjouterBouteillePerso/${cellierId}`"
+    >
+      Ajouter une bouteille personnalisée
+      <ChevronRightIcon class="cellier-icone-ajout-bouteille" />
+    </router-link>
+  </div>
   <VinCellierCarte
     v-for="item in vins"
     :key="item.id"
@@ -26,6 +34,10 @@
   <div class="espacement"></div>
 </template>
 
+<script setup>
+import { ChevronRightIcon } from "@heroicons/vue/24/outline";
+</script>
+
 <script>
 import api from "../../api";
 import Navbar from "../../components/Navbar.vue";
@@ -41,6 +53,7 @@ export default {
   data() {
     return {
       cellierNom: "",
+      cellierId: "",
       vins: [],
       erreur: "",
       afficherModale: false,
@@ -56,6 +69,10 @@ export default {
         const reponse = await api.get(`/detail-cellier/${id}`);
 
         this.cellierNom = reponse.data.cellier.nom;
+
+        // this.cellierId est utilisé pour l'ajout de bouteille personnalisée dans ce cellier
+        this.cellierId = reponse.data.cellier.id;
+
         this.vins = reponse.data.vins;
       } catch (erreur) {
         this.erreur = "Erreur lors de l'affichage des details de ce cellier";

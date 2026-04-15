@@ -85,8 +85,7 @@ class CellierController extends Controller
         $usager = Usager::findOrFail($cellier->usager_id);
 
         // Vérifier si l'usager connecté est le propriétaire du cellier
-
-        if ($usager->courriel !== auth()->id()) {
+        if ($usager->id !== auth()->id()) {
             return response()->json([
                 'message' => 'Non autorisé à modifier ce cellier'
             ], 403);

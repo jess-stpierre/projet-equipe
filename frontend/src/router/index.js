@@ -11,6 +11,7 @@ import Dashboard from "../pages/cellier/Dashboard.vue";
 import DetailBouteille from "../pages/bouteille/DetailBouteille.vue";
 import DetailCellier from "../pages/cellierVin/DetailCellier.vue";
 import AjouterBouteille from "../pages/bouteille/AjouterBouteille.vue";
+import AjouterBouteillePerso from "../pages/bouteille/AjouterBouteillePerso.vue";
 
 const routes = [
   {
@@ -69,7 +70,11 @@ const routes = [
     component: DetailCellier,
     meta: { requiresAuth: true },
   },
-
+  {
+    path: "/bouteille/AjouterBouteillePerso/:id",
+    component: AjouterBouteillePerso,
+    meta: { requiresAuth: true },
+  },
   // redirige les URL non reconnu (dans notre code) pour /connexion-usager
   {
     path: "/:pathMatch(.*)*",

@@ -42,5 +42,24 @@
 }
 .bouton-celleir {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+  gap: 5px;
+}
+
+.cellier-lien-ajout-bouteille {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 5px;
+  padding: var(--espace-grand) 0px;
+  text-decoration: none;
+  color: var(--rouge-vin-profond);
+  font-weight: 700;
+}
+
+.cellier-icone-ajout-bouteille {
+  width: 20px;
+  height: 20px;
+  color: var(--rouge-vin-profond);
+  font-weight: 700;
 }
