@@ -60,10 +60,14 @@ Route::middleware(['web', 'auth'])->group(function () {
     Route::get('/detail-cellier/{id}', [CellierVinController::class, 'index']);
     Route::delete('/cellier-vins/{cellierVin}', [CellierVinController::class, 'destroy']);
     Route::get('/cellier-vin/{id}', [CellierVinController::class, 'show']);
+    Route::post('/creer-bouteille-perso', [VinController::class, 'creerBouteillePersonnalisee']);
 
     //Recherche bouteille dans les celliers
     Route::get('/bouteilles', [CellierController::class, 'bouteillesUsager']);
 
     //Filtrer les bouteilles du catalogue
     Route::get('/vins', [VinController::class, 'index']);
+
+    // Route pour obtenir la liste des pays disponibles dans le catalogue de vins
+    Route::get('/pays', [VinController::class, 'recupererPays']);
 });
