@@ -122,16 +122,43 @@ class CellierController extends Controller
     {
         //Récupère l'usager actuellement connecté
         $usager = auth()->user();
-
+        
         //Récupère les filtres envoyés ou un tableau vide par defaut
         $filters = $request->get('filters', []);
         $search = $request->get('recherche', '');
+        $tri = $request->get('tri', '');
 
         //Construit la requete principale
         $query = CellierVin::with(['vin', 'cellier'])
             ->whereHas('cellier', function ($q) use ($usager) {
                 $q->where('usager_id', $usager->id);
-            });
+            })
+            ->join('vins', 'cellier_vins.vin_id', '=', 'vins.id')
+            ->select('cellier_vins.*');
+            
+        // Trie les bouteilles selon num passé par requete    
+        switch ($tri) {
+            case 1:
+                $query->orderBy('vins.nom', 'asc');
+                break;
+            case 2:
+                $query->orderBy('vins.nom', 'desc');                    
+                break;
+            case 3:
+                $query->orderBy('prix', 'asc');                    
+                break;
+            case 4:
+                $query->orderBy('prix', 'desc');                    
+                break;
+            case 5:
+                $query->orderBy('annee', 'asc');                    
+                break;
+            case 6:
+                $query->orderBy('annee', 'desc');                    
+                break;
+            default:
+                break;
+        }
 
         //Filtrer par nom de vin
         if (!empty($search)) {
