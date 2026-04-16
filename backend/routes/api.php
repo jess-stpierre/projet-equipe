@@ -7,7 +7,7 @@ use App\Http\Controllers\CellierController;
 use App\Http\Controllers\CellierVinController;
 use App\Http\Controllers\UsagerController;
 use App\Http\Controllers\VinController;
-
+use App\Http\Controllers\ListeAchatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,4 +73,7 @@ Route::middleware(['web', 'auth'])->group(function () {
 
     // Route pour supprimer une bouteille personnalisée de la table des vins
     Route::delete('/supprimer-bouteille/{bouteilleSKU}', [VinController::class, 'supprimerVinPersonnalise']);
+
+    //Routes pour gerer la liste d'achats
+    Route::post('/ajouter-bouteille-liste', [ListeAchatController::class, 'store']);
 });
