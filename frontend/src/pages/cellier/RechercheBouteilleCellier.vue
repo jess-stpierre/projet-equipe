@@ -19,8 +19,8 @@
     <button class="btn btn-entete-cellier" @click="toggleFilter">
       <ListFilter class="icon" /><span>Filtrer </span>
     </button>
-    <button class="btn btn-entete-cellier">
-      <ArrowDownUp class="icon" /><span>Trier </span>
+    <button class="btn btn-entete-cellier" @click="showTri = true">
+      <ArrowDownNarrowWide class="icon" /><span>Trier </span>
     </button>
   </div>
 
@@ -89,6 +89,13 @@
     </ul>
   </aside>
 
+  <ModalTri
+    :show="showTri"
+    :tri="tri"
+    @apply="appliquerTri"
+    @close="showTri = false"
+  />
+
   <div class="liste-bouteilles">
     <div
       v-for="bouteille in bouteilles"
@@ -140,21 +147,24 @@
 
 <script>
 import Navbar from "../../components/Navbar.vue";
-import { Search, ListFilter, ArrowDownUp, Trash, Eye, CirclePlus, CircleMinus, } from "lucide-vue-next";
+import { Search, ListFilter, ArrowDownNarrowWide, Trash, Eye, CirclePlus, CircleMinus, } from "lucide-vue-next";
 import FilterSection from "../../components/FilterSelection.vue";
 import ColorFilter from "../../components/ColorFilter.vue";
 import axios from "axios";
 import api, { fetchCsrfToken } from "../../api";
 import ModalConfirmation from "../../components/ModalConfirmation.vue";
+import ModalTri from "../../components/ModalTri.vue";
+
 
 export default {
   components: {
     Navbar,
     Search,
     ListFilter,
-    ArrowDownUp,
+    ArrowDownNarrowWide,
     FilterSection,
     ColorFilter,
+    ModalTri,
     Trash,
     Eye,
     CirclePlus,
@@ -164,6 +174,8 @@ export default {
 
   data() {
     return {
+      showTri: false,
+      tri: 0,
       /**
        * Texte saisi par l'usager dans la barre de recherche
        * pour filtrer
@@ -236,6 +248,18 @@ export default {
       this.showFilter = !this.showFilter;
     },
 
+    // Permet d'ouvrir ou fermer le panneau de tri
+    toggleTri() {
+      this.showTri = !this.showTri;
+    },
+
+    // Met à jour la valeur du tri, appelle la fonction et cache la fenêtre
+    appliquerTri(triChoisi) {
+      this.tri = triChoisi;
+      this.fetchBouteilles();
+      this.showTri = false;
+    },
+
     /**
      * Méthode qui permet de chercher les bouteilles
      * depuis l'API du backend pour faire la recherche
@@ -251,6 +275,8 @@ export default {
 
             //Filtres sélectionnés par l'usager
             filters: this.selected,
+            // Tri séléctionné par l'usager
+            tri: this.tri,
           },
         });
 

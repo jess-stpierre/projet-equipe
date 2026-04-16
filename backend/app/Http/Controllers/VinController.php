@@ -26,8 +26,9 @@ class VinController extends Controller
         $page = (int) $request->get('page', 1);
         $perPage = (int) $request->get('per_page', 12);
         $recherche = $request->get('recherche', '');
-        $tri = $request->get('tri');
+        $tri = $request->get('tri', '');
 
+        // Trie les bouteilles selon num passé par requete
         switch ($tri) {
             case 1:
                 $query = Vin::query()->orderBy('nom', 'asc');
