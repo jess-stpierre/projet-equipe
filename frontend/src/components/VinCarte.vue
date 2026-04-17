@@ -22,18 +22,19 @@
     </div>
   </div>
   <div class="vin-card vin-infos">
-    <h2 class="vin-titre">Détails :</h2>
-    <p class="vin-sous-titre">Pays : {{ bouteilleVin.pays }}</p>
-    <p class="vin-infos-parag">Region : {{ bouteilleVin.region }}</p>
-    <p class="vin-infos-parag">Cepage : {{ bouteilleVin.cepage }}</p>
-    <p class="vin-details">Format : {{ bouteilleVin.format }} ml</p>
-
-    <p class="vin-infos-parag">
-      Alcool : {{ Number(bouteilleVin.degre_alcool).toFixed(1) }}
-    </p>
-    <p class="vin-infos-parag">Taux sucre : {{ bouteilleVin.taux_sucre }}</p>
-    <p class="vin-infos-parag">Année : {{ bouteilleVin.annee }}</p>
-    <p class="vin-infos-parag">Couleur : {{ bouteilleVin.couleur }}</p>
+    <div class="vin-contenu details">
+      <h2 class="vin-titre">Détails :</h2>
+      <p class="vin-sous-titre">Pays : {{ bouteilleVin.pays }}</p>
+      <p class="vin-infos-parag">Region : {{ bouteilleVin.region }}</p>
+      <p class="vin-infos-parag">Cepage : {{ bouteilleVin.cepage }}</p>
+      <p class="vin-details">Format : {{ bouteilleVin.format }} ml</p>
+      <p class="vin-infos-parag">
+        Alcool : {{ Number(bouteilleVin.degre_alcool).toFixed(1) }}
+      </p>
+      <p class="vin-infos-parag">Taux sucre : {{ bouteilleVin.taux_sucre }}</p>
+      <p class="vin-infos-parag">Année : {{ bouteilleVin.annee }}</p>
+      <p class="vin-infos-parag">Couleur : {{ bouteilleVin.couleur }}</p>
+    </div>
   </div>
 
   <!-- Affiche les boutons de modification et de suppression uniquement pour les
