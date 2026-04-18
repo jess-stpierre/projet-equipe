@@ -12,7 +12,7 @@
   transform: translateX(-50%);
   text-align: center;
   background: var(--rouge-vin-profond);
-  z-index: 1000;
+  /* z-index: 1000; */
 }
 
 .banniere-titre {
@@ -20,4 +20,19 @@
   color: var(--blanc-fonce);
   margin-top: 0;
   padding: var(--espace-grand);
+}
+
+@media screen and (min-width: 768px) {
+  .mobile-navbar.banniere {
+    top: 45px;
+  }
+  .banniere-titre {
+    padding: 5px;
+  }
+  .home {
+    margin-top: 45px;
+  }
+  [id="app"] {
+    margin-top: 45px;
+  }
 }
