@@ -4,6 +4,8 @@
       <img :src="vin.image_url" :alt="vin.nom" class="cellier-img" />
       <div>
         <h2 class="nom">{{ vin.nom }}</h2>
+        <p>{{ vin.couleur }} – {{ vin.pays }}</p>
+        <p>{{ vin.prix }}$</p>
       </div>
     </div>
 
@@ -15,12 +17,15 @@
       <button class="btn btn-cellier" @click="voirDetail">
         <Eye class="icons" />
       </button>
+      <button class="btn btn-cellier" @click="ajouterAuCellier">
+        <Plus class="icons" />
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import { Trash, PencilLine, Eye } from "lucide-vue-next";
+import { Trash, PencilLine, Eye, Plus } from "lucide-vue-next";
 import api, { fetchCsrfToken } from "../api";
 
 export default {
@@ -28,6 +33,7 @@ export default {
     Trash,
     PencilLine,
     Eye,
+    Plus,
   },
   props: {
     vin: Object,
@@ -54,6 +60,9 @@ export default {
       } catch (erreur) {
         console.error(erreur);
       }
+    },
+    async ajouterAuCellier() {
+      this.$router.push(`/bouteille/AjouterBouteille/${this.vin.id}`);
     },
   },
 };

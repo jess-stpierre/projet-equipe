@@ -92,7 +92,7 @@ export default {
           "Votre bouteille a été ajoutée au cellier avec succès !";
         setTimeout(() => {
           this.messageSucces = "";
-          this.$router.push("/catalogue");
+          this.$router.back();
         }, 2000);
       } catch (erreur) {
         if (erreur.response.data.errors) {

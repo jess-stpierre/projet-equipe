@@ -3,7 +3,10 @@
   <div class="banniere">
     <h2 class="banniere-titre">Liste d'achats</h2>
   </div>
-
+  <p class="catalogue-description">
+    Ajoutez vos vins à vos celliers, consultez-les ou supprimez-les selon vos
+    besoins!
+  </p>
   <Achat
     v-for="vin in vins"
     :key="vin.id"
