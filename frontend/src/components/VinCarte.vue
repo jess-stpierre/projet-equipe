@@ -6,6 +6,7 @@
       <div class="vin-bg"></div>
       <div class="vin-back" @click="retour">←</div>
       <img :src="bouteilleVin.image" class="vin-image" />
+      <div class="vin-note" @click="allerNote">Évaluer</div>
     </div>
     <div class="vin-contenu">
       <h2 class="vin-titre">
@@ -83,6 +84,11 @@ export default {
     // Permet de revenir à la page précédente
     retour() {
       this.$router.go(-1);
+    },
+
+    // Permet redirectionner vers Note.vue
+    allerNote() {
+      this.$router.push(`/note/${this.bouteilleVin.id}`);
     },
   },
 };
