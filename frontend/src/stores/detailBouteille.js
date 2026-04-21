@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-
+// Store pour gérer les détails d'une bouteille dans le cellier
 export const useCellierStore = defineStore("cellier", {
   state: () => ({
     bouteilleVin: [],
@@ -9,6 +9,7 @@ export const useCellierStore = defineStore("cellier", {
   }),
 
   actions: {
+    // Fonction pour récupérer les détails d'une bouteille spécifique dans le cellier
     async fetchCellier(id) {
       this.loading = true;
       this.bouteilleVin = null;
@@ -18,7 +19,7 @@ export const useCellierStore = defineStore("cellier", {
           `http://localhost:8000/api/cellier-vin/${id}`,
           { withCredentials: true },
         );
-
+        // Met à jour l'état avec les détails de la bouteille récupérée
         this.bouteilleVin = res.data;
       } catch (error) {
         console.error(error);
@@ -27,6 +28,7 @@ export const useCellierStore = defineStore("cellier", {
           this.bouteilleVin = null;
         }
       } finally {
+        // Assure que le chargement est terminé, même en cas d'erreur
         this.loading = false;
       }
     },

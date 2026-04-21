@@ -3,6 +3,7 @@
   <div class="banniere">
     <h2 class="banniere-titre">Mon profil</h2>
   </div>
+  <!-- Contenu de la page de profil -->
   <div class="profil-page">
     <div class="profil-carte">
       <p v-if="erreur">{{ erreur }}</p>
@@ -11,6 +12,7 @@
         <p class="profil-data">Courriel : {{ usager.courriel }}</p>
       </div>
     </div>
+    <!-- Actions disponibles pour l'usager -->
     <div class="profil-action profil-lien">
       <router-link
         v-if="usager"
@@ -95,7 +97,7 @@ export default {
       // todo : Ajouter une boite modale
       this.afficherModale = true;
     },
-
+    // Confirme la suppression du compte de l'usager et redirige vers la page de connexion
     async confirmerSuppression() {
       try {
         // suppression du compte de l'usager
@@ -108,7 +110,7 @@ export default {
         this.erreur = "Erreur lors de la suppression";
       }
     },
-
+    //
     async deconnecterUsager() {
       try {
         //deconnexion du compte de l'usager

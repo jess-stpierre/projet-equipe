@@ -1,10 +1,11 @@
 <template>
+  <!-- Affichage de la barre de navigation -->
   <Navbar />
 
   <div v-if="messageSucces" class="bloc-modale-succes">
     {{ messageSucces }}
   </div>
-
+  <!-- Formulaire d'ajout de bouteille personnalisée -->
   <div>
     <form class="bloc-form" @submit.prevent="insererVin">
       <h1 class="profil-titre">Ajouter une bouteille</h1>
@@ -225,6 +226,7 @@ export default {
       }
     },
   },
+  // récupérer la liste des pays lorsque le composant est monté
   mounted() {
     this.recupererPays();
   },

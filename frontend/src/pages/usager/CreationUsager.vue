@@ -3,6 +3,7 @@
     <div class="bloc-img">
       <img src="../../assets/img/logo3.svg" />
     </div>
+    <!-- Formulaire de création de compte -->
     <form @submit.prevent="gererSoumission" class="bloc-form">
       <p class="already-txt">
         Déjà membre ?
@@ -16,7 +17,7 @@
           {{ erreurs.nom[0] }}
         </div>
       </div>
-
+      <!-- Courriel -->
       <div>
         <label>Courriel :</label>
         <input
@@ -28,7 +29,7 @@
           {{ erreurs.courriel[0] }}
         </div>
       </div>
-
+      <!-- Mot de passe -->
       <div>
         <label>Mot de passe :</label>
         <input
@@ -60,13 +61,14 @@ export default {
     };
   },
   methods: {
+    // Gère la soumission du formulaire : crée l'usager et le connecte
     async gererSoumission() {
       await this.creerUsager();
       await this.connexion();
     },
     // creer l'usager quand il pese sur "creer un compte"
     async creerUsager() {
-      console.log("Méthode creerUsager appelée !");
+      // console.log("Méthode creerUsager appelée !");
       try {
         const response = await axios.post("http://localhost:8000/api/usagers", {
           nom: this.nom,
@@ -74,7 +76,7 @@ export default {
           mot_de_passe: this.mot_de_passe,
         });
 
-        console.log(response.data);
+        // console.log(response.data);
       } catch (erreur) {
         if (erreur.response && erreur.response.status === 422) {
           this.erreurs = erreur.response.data.erreurs;

@@ -1,8 +1,10 @@
 <template>
+  <!-- Page dedie à la connexion des usagers -->
   <div class="container">
     <div class="bloc-img">
       <img src="../../assets/img/logo3.svg" />
     </div>
+    <!-- Formulaire de connexion -->
     <form class="bloc-form" @submit.prevent="connexion">
       <div>
         <label for="courriel">Courriel</label>
@@ -14,6 +16,7 @@
           required
         />
       </div>
+      <!-- Mot de passe -->
       <div>
         <label for="mot_de_passe">Mot de passe</label>
         <input
@@ -24,6 +27,7 @@
           required
         />
       </div>
+      <!-- Bouton de soumission -->
       <button class="signup-btn" type="submit" :disabled="loading">
         {{ loading ? "Connexion..." : "Se Connecter" }}
       </button>

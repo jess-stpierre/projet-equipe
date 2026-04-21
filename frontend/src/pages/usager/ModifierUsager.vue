@@ -4,6 +4,7 @@
   </div>
   <Navbar />
   <div class="container-plain">
+    <!-- Formulaire de modification des données de l'usager -->
     <form @submit.prevent="updateUsager" class="bloc-form">
       <div>
         <label>Nom :</label>
@@ -63,7 +64,7 @@ export default {
       try {
         const id = this.$route.params.id;
         const response = await axios.get(
-          `http://localhost:8000/api/usagers/${id}`
+          `http://localhost:8000/api/usagers/${id}`,
         );
 
         this.nom = response.data.data.nom;
@@ -84,17 +85,20 @@ export default {
       this.erreurs = {};
       this.messageSucces = "";
       try {
+        // Récupérer le token CSRF avant d'envoyer la requête PUT
         await fetchCsrfToken();
-        const id = this.$route.params.id; // récupère l'id dans l'URL
+        const id = this.$route.params.id;
+        // Envoyer la requête PUT pour mettre à jour les données de l'usager
         const response = await api.put(`/usagers/${id}`, {
           nom: this.nom,
           courriel: this.courriel,
         });
-
+        // Afficher un message de succès
         if (this.ancien_courriel !== this.courriel) {
           this.ancien_courriel = this.courriel;
           this.$router.push("/connexion-usager");
         } else {
+          // Rediriger vers la page de profil après la mise à jour
           this.$router.push("/profil-usager");
         }
       } catch (erreur) {

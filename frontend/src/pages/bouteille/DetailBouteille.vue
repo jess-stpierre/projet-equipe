@@ -1,5 +1,6 @@
 <template>
   <Navbar />
+  <!-- Affichage de la carte de vin si les données sont disponibles -->
   <div class="page-vinCarte">
     <VinCarte
       v-if="store.bouteilleVin"
@@ -8,6 +9,7 @@
       @supprimer-bouteille="ouvrirModale"
       @modifier-bouteille="modifierBouteille"
     />
+    <!-- modal avec message de confirmation -->
     <ModalConfirmation
       :show="afficherModale"
       message="Voulez-vous supprimer cette bouteille, la suppression est définitive ?"
@@ -33,11 +35,11 @@ const store = useCellierStore();
 const route = useRoute();
 const router = useRouter();
 const afficherModale = ref(false);
-
+// Fonction pour ouvrir la modale de confirmation
 function ouvrirModale() {
   afficherModale.value = true;
 }
-
+// Fonction pour supprimer la bouteille
 async function supprimerBouteille() {
   try {
     // Récupérer le SKU de la bouteille à supprimer depuis le store
@@ -57,12 +59,13 @@ async function supprimerBouteille() {
     console.error("Erreur lors de la suppression de la bouteille:", erreur);
   }
 }
+// Fonction pour rediriger vers la page de modification de la bouteille
 function modifierBouteille() {
   router.push(
     `/bouteille/ModifierBouteillePerso/${store.bouteilleVin.sku},${store.bouteilleVin.cellier_id}`,
   );
 }
-
+// Charger les données de la bouteille lors du montage du composant
 onMounted(() => {
   store.fetchCellier(route.params.id);
 });

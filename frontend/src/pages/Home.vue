@@ -2,6 +2,7 @@
   <Navbar />
   <div class="home">
     <Logo />
+    <!-- Filtres -->
     <div class="filtre">
       <div class="btn-recherche catalogue mobile-only">
         <button class="btn btn-entete-cellier" @click="toggleFilter">
@@ -11,7 +12,7 @@
           <ArrowDownNarrowWide class="icon" /><span>Trier </span>
         </button>
       </div>
-
+      <!-- afficher les filtres si showFilter est true -->
       <div
         class="filtre-ouvrir"
         :class="{ active: showFilter }"
@@ -22,9 +23,11 @@
         <div class="filter-header">
           <h2>Filtres</h2>
         </div>
+        <!-- Bouton pour réinitialiser les filtres -->
         <button class="reset-filters" @click="reinitialiserFiltres">
           Réinitialiser les filtres
         </button>
+        <!-- Liste des filtres -->
         <ul class="filter-list">
           <ColorFilter v-model="selected.couleur" />
           <FilterSelect
@@ -78,14 +81,14 @@
         </ul>
       </aside>
     </div>
-
+    <!-- modal de tri -->
     <ModalTri
       :show="showTri"
       :tri="tri"
       @apply="appliquerTri"
       @close="showTri = false"
     />
-
+    <!-- barre de recherche des vins par nom -->
     <div class="search-container">
       <Search class="search-icon" />
       <input
@@ -112,7 +115,7 @@
     </p>
 
     <WineGrid v-if="!loading" :vins="vins" />
-
+    <!-- Pagination du catalogue -->
     <Pagination
       v-if="!loading && totalPages > 1"
       :page="page"
@@ -193,36 +196,43 @@ export default {
   },
 
   computed: {
+    // Récupère les vins depuis le store
     vins() {
       return this.wineStore.wines;
     },
-
+    // Indique si les vins sont en cours de chargement
     loading() {
       return this.wineStore.loading;
     },
-
+    // Calcule le nombre total de pages en fonction du nombre total de vins et du nombre de vins par page
     totalPages() {
       return Math.ceil(this.wineStore.total / this.perPage);
     },
+    // Récupère les options de filtre depuis le store
     countries() {
       return this.wineStore.filters.countries || [];
     },
+    // Récupère les régions disponibles pour le filtre
     regions() {
       return this.wineStore.filters.regions || [];
     },
+    // Récupère les cépages disponibles pour le filtre
     cepages() {
       return this.wineStore.filters.cepages || [];
     },
+    // Récupère les prix minimum et maximum pour le filtre
     prix() {
       return this.wineStore.filters.prix || { min: 0, max: 0 };
     },
+    // Récupère les formats minimum et maximum pour le filtre
     formats() {
       return this.wineStore.filters.format || { min: 0, max: 0 };
     },
+    // Récupère les degrés minimum et maximum pour le filtre
     degres() {
       return this.wineStore.filters.degres || { min: 0, max: 0 };
     },
-
+    // Calcule la liste des millésimes disponibles pour le filtre en fonction des valeurs minimum et maximum
     millesimes() {
       const range = this.wineStore.filters.millesimes;
 
@@ -236,7 +246,7 @@ export default {
       return years;
     },
   },
-
+  // Surveille les changements dans les filtres sélectionnés, la page actuelle et le nombre de vins par page pour déclencher une nouvelle recherche de vins
   watch: {
     selected: {
       handler() {
@@ -255,15 +265,16 @@ export default {
   },
 
   methods: {
+    // Formate les données en nombre, retourne 0 si la conversion échoue
     formatDonnees(value) {
       const num = parseFloat(value);
       return isNaN(num) ? 0 : num;
     },
-
+    // Affiche ou masque le panneau de filtres
     toggleFilter() {
       this.showFilter = !this.showFilter;
     },
-
+    // Affiche ou masque le modal de tri
     toggleTri() {
       this.showTri = !this.showTri;
     },
@@ -271,7 +282,7 @@ export default {
       this.page = 1;
       this.fetchWines();
     },
-
+    // Récupère les vins en fonction des filtres sélectionnés, de la page actuelle, du nombre de vins par page, du terme de recherche et du tri sélectionné
     async fetchWines() {
       const filters = {};
       if (this.selected.countries.length)
@@ -305,7 +316,7 @@ export default {
         filters.millesimes = this.selected.millesimes;
       }
       if (this.selected.couleur.length) filters.couleur = this.selected.couleur;
-
+      // Appelle la méthode du store pour récupérer les vins en fonction des critères de recherche
       await this.wineStore.fetchAllWines(
         this.page,
         this.perPage,
@@ -314,7 +325,7 @@ export default {
         this.tri,
       );
     },
-
+    // Récupère les vins en fonction du terme de recherche saisi
     async rechercherVins() {
       const filters = {};
       await this.wineStore.fetchAllWines(
@@ -324,29 +335,29 @@ export default {
         this.termeDeRecherche,
       );
     },
-
+    // Change la page actuelle
     goToPage(p) {
       this.page = p;
     },
-
+    // Passe à la page suivante si elle existe
     nextPage() {
       if (this.page < this.totalPages) this.page++;
     },
-
+    // Passe à la page précédente si elle existe
     prevPage() {
       if (this.page > 1) this.page--;
     },
-
+    // Change le nombre de vins affichés par page
     changePerPage(val) {
       this.perPage = val;
     },
-
+    // Applique le tri sélectionné et rafraîchit la liste des vins
     appliquerTri(triChoisi) {
       this.tri = triChoisi;
       this.fetchWines();
       this.showTri = false;
     },
-
+    // Réinitialise tous les filtres, le terme de recherche, la page actuelle et rafraîchit la liste des vins
     reinitialiserFiltres() {
       this.selected = {
         countries: [],
@@ -358,14 +369,14 @@ export default {
         millesimes: { min: null, max: null },
         couleur: [],
       };
-
+      // Incrémente le compteur de réinitialisation pour forcer la réinitialisation des composants de filtre
       this.termeDeRecherche = "";
       this.page = 1;
       this.reinitialiser++;
       this.fetchWines();
     },
   },
-
+  // Lors du montage du composant, récupère la liste des vins en appelant la méthode fetchWines
   async mounted() {
     await this.fetchWines();
   },

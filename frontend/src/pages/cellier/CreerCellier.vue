@@ -1,5 +1,6 @@
 <template>
   <Navbar />
+  <!-- Formulaire de création de cellier -->
   <div>
     <form @submit.prevent="creerCellier" class="bloc-form">
       <h2 class="profil-titre">Création de cellier</h2>
@@ -49,6 +50,7 @@ export default {
           nom: this.nom,
           usager: this.usager,
         });
+        // rediriger vers le dashboard après la création du cellier
         this.cellier = response.data;
         this.$router.push("/dashboard");
       } catch (erreur) {

@@ -1,12 +1,15 @@
 <template>
+  <!-- Affichage de la barre de navigation -->
   <Navbar />
   <div v-if="messageSucces" class="bloc-modale-succes">
     {{ messageSucces }}
   </div>
+  <!-- Formulaire pour ajouter une bouteille au cellier -->
   <div>
     <form class="bloc-form" @submit.prevent="ajouterBouteille">
       <h1 class="profil-titre">Ajouter la bouteille au cellier</h1>
       <label>Nom du cellier </label>
+      <!-- Affichage d'un menu déroulant pour sélectionner le cellier où ajouter la bouteille -->
       <select class="form-input" v-model="cellier_id">
         <option disabled value="">Choisir un cellier</option>
         <option
@@ -20,6 +23,7 @@
       <div v-if="erreurs.cellier_id" class="erreur">
         {{ erreurs.cellier_id[0] }}
       </div>
+      <!-- Champ pour saisir la quantité de bouteilles à ajouter -->
       <label>Quantité de bouteilles </label>
       <input
         class="form-input"
