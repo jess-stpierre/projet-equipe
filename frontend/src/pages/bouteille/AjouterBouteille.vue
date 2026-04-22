@@ -10,11 +10,7 @@
       <h1 class="profil-titre">Ajouter la bouteille au cellier</h1>
       <label>Nom du cellier </label>
       <!-- Affichage d'un menu déroulant pour sélectionner le cellier où ajouter la bouteille -->
-      <select
-        class="form-input"
-        v-model="cellier_id"
-        aria-label="Choisir un cellier"
-      >
+      <select v-model="cellier_id" aria-label="Choisir un cellier">
         <option disabled value="">Choisir un cellier</option>
         <option
           v-for="cellier in celliers"
@@ -29,12 +25,7 @@
       </div>
       <!-- Champ pour saisir la quantité de bouteilles à ajouter -->
       <label>Quantité de bouteilles </label>
-      <input
-        class="form-input"
-        type="number"
-        v-model.number="quantite"
-        placeholder="0"
-      />
+      <input type="number" v-model.number="quantite" placeholder="0" />
       <div v-if="erreurs.quantite" class="erreur">
         {{ erreurs.quantite[0] }}
       </div>

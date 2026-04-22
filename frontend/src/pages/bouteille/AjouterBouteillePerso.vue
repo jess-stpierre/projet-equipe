@@ -11,13 +11,7 @@
       <h1 class="profil-titre">Ajouter une bouteille</h1>
 
       <label for="nom">Nom *</label>
-      <input
-        id="nom"
-        class="form-input"
-        type="text"
-        v-model="nom"
-        aria-label="nom"
-      />
+      <input id="nom" type="text" v-model="nom" aria-label="nom" />
       <div v-if="erreurs.nom" class="erreur">
         {{ erreurs.nom[0] }}
       </div>
@@ -25,7 +19,6 @@
       <label for="prix">Prix *</label>
       <input
         id="prix"
-        class="form-input"
         type="decimal"
         v-model="prix"
         placeholder="Ex: 24.99"
@@ -47,25 +40,13 @@
       </div>
 
       <label for="region">Région</label>
-      <input
-        id="region"
-        class="form-input"
-        type="text"
-        v-model="region"
-        aria-label="Région"
-      />
+      <input id="region" type="text" v-model="region" aria-label="Région" />
       <div v-if="erreurs.region" class="erreur">
         {{ erreurs.region[0] }}
       </div>
 
       <label for="cepage">Cépage</label>
-      <input
-        id="cepage"
-        class="form-input"
-        type="text"
-        v-model="cepage"
-        aria-label="Cépage"
-      />
+      <input id="cepage" type="text" v-model="cepage" aria-label="Cépage" />
       <div v-if="erreurs.cepage" class="erreur">
         {{ erreurs.cepage[0] }}
       </div>
@@ -73,7 +54,6 @@
       <label for="degre_alcool">Degré d'alcool</label>
       <input
         id="degre_alcool"
-        class="form-input"
         type="text"
         v-model="degre_alcool"
         placeholder="Ex: 13.5"
@@ -86,7 +66,6 @@
       <label for="taux_sucre">Taux de sucre</label>
       <input
         id="taux_sucre"
-        class="form-input"
         type="text"
         v-model="taux_sucre"
         placeholder="Ex: 3.2"
@@ -99,7 +78,6 @@
       <label for="format">Format (en ml)</label>
       <input
         id="format"
-        class="form-input"
         type="text"
         v-model="format"
         placeholder="Ex: 750"
@@ -112,7 +90,6 @@
       <label for="annee">Année</label>
       <input
         id="annee"
-        class="form-input"
         type="text"
         v-model="annee"
         placeholder="Ex: 2020"
@@ -123,12 +100,7 @@
       </div>
 
       <label for="couleur">Couleur</label>
-      <select
-        id="couleur"
-        class="form-input"
-        v-model="couleur"
-        aria-label="Choisir une couleur"
-      >
+      <select id="couleur" v-model="couleur" aria-label="Choisir une couleur">
         <option disabled value="">Choisir une couleur</option>
         <option value="Rouge">Rouge</option>
         <option value="Blanc">Blanc</option>
@@ -144,7 +116,6 @@
       <label for="quantite">Quantité de bouteilles *</label>
       <input
         id="quantite"
-        class="form-input"
         type="number"
         v-model.number="quantite"
         placeholder="0"

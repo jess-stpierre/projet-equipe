@@ -10,18 +10,13 @@
       <h1 class="profil-titre">Modifier une bouteille personnalisée</h1>
 
       <label>Nom</label>
-      <input class="form-input" type="text" v-model="nom" />
+      <input type="text" v-model="nom" />
       <div v-if="erreurs.nom" class="erreur">
         {{ erreurs.nom[0] }}
       </div>
 
       <label>Prix</label>
-      <input
-        class="form-input"
-        type="decimal"
-        v-model="prix"
-        placeholder="Ex: 24.99"
-      />
+      <input type="decimal" v-model="prix" placeholder="Ex: 24.99" />
       <div v-if="erreurs.prix" class="erreur">
         {{ erreurs.prix[0] }}
       </div>
@@ -38,67 +33,43 @@
       </div>
 
       <label>Région</label>
-      <input class="form-input" type="text" v-model="region" />
+      <input type="text" v-model="region" />
       <div v-if="erreurs.region" class="erreur">
         {{ erreurs.region[0] }}
       </div>
 
       <label>Cépage</label>
-      <input class="form-input" type="text" v-model="cepage" />
+      <input type="text" v-model="cepage" />
       <div v-if="erreurs.cepage" class="erreur">
         {{ erreurs.cepage[0] }}
       </div>
 
       <label>Degré d'alcool</label>
-      <input
-        class="form-input"
-        type="text"
-        v-model="degre_alcool"
-        placeholder="Ex: 13.5"
-      />
+      <input type="text" v-model="degre_alcool" placeholder="Ex: 13.5" />
       <div v-if="erreurs.degre_alcool" class="erreur">
         {{ erreurs.degre_alcool[0] }}
       </div>
 
       <label>Taux de sucre</label>
-      <input
-        class="form-input"
-        type="text"
-        v-model="taux_sucre"
-        placeholder="Ex: 3.2"
-      />
+      <input type="text" v-model="taux_sucre" placeholder="Ex: 3.2" />
       <div v-if="erreurs.taux_sucre" class="erreur">
         {{ erreurs.taux_sucre[0] }}
       </div>
 
       <label>Format (en ml)</label>
-      <input
-        class="form-input"
-        type="text"
-        v-model="format"
-        placeholder="Ex: 750"
-      />
+      <input type="text" v-model="format" placeholder="Ex: 750" />
       <div v-if="erreurs.format" class="erreur">
         {{ erreurs.format[0] }}
       </div>
 
       <label>Année</label>
-      <input
-        class="form-input"
-        type="text"
-        v-model="annee"
-        placeholder="Ex: 2020"
-      />
+      <input type="text" v-model="annee" placeholder="Ex: 2020" />
       <div v-if="erreurs.annee" class="erreur">
         {{ erreurs.annee[0] }}
       </div>
 
       <label>Couleur</label>
-      <select
-        class="form-input"
-        v-model="couleur"
-        aria-label="Choisir une couleur"
-      >
+      <select v-model="couleur" aria-label="Choisir une couleur">
         <option disabled value="">Choisir une couleur</option>
         <option value="Rouge">Rouge</option>
         <option value="Blanc">Blanc</option>
