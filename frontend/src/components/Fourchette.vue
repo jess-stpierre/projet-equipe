@@ -7,6 +7,29 @@
 
     <div v-show="open" class="price-range">
       <div class="slider-container">
+        <div class="price-inputs">
+          <div class="min-max">
+            <label>Minimum</label>
+            <input
+              type="number"
+              v-model.number="range[0]"
+              :min="minLimit"
+              :max="range[1]"
+              class="input-min"
+            />
+          </div>
+
+          <div class="min-max">
+            <label>Maximum</label>
+            <input
+              type="number"
+              v-model.number="range[1]"
+              :min="range[0]"
+              :max="maxLimit"
+              class="input-max"
+            />
+          </div>
+        </div>
         <Slider
           v-model="range"
           :min="minLimit"
@@ -14,10 +37,6 @@
           :tooltips="false"
         />
 
-        <div class="custom-tooltips">
-          <div class="tooltip-min">{{ range[0] }}</div>
-          <div class="tooltip-max">{{ range[1] }}</div>
-        </div>
         <button @click="apply" class="app-filtre">Appliquer le filtre</button>
       </div>
     </div>
@@ -68,6 +87,19 @@ export default {
 
     maxLimit() {
       this.initRange();
+    },
+
+    range: {
+      deep: true,
+      handler(val) {
+        if (!val) return;
+
+        let [min, max] = val;
+
+        if (min > max) {
+          this.range = [max, min];
+        }
+      },
     },
   },
 

@@ -192,13 +192,28 @@ class CellierController extends Controller
 
         //filtrer par degre alcool
         if (!empty($filters['degres'])) {
-            $query->whereHas(
-                'vin',
-                fn($q) =>
-                $q->whereIn('degre_alcool', $filters['degres'])
-            );
-        }
+            $query->where(function ($q) use ($filters) {
 
+                foreach ($filters['degres'] as $d) {
+
+                    if ($d == 0) {
+                        // ultra faible
+                        $q->orWhere('degre_alcool', '<', 0.05);
+                    } elseif ($d == 0.05) {
+                        // < 0.05%
+                        $q->orWhereBetween('degre_alcool', [0.01, 0.05]);
+                    } elseif ($d == 0.5) {
+                        // 0.05 à 0.5
+                        $q->orWhereBetween('degre_alcool', [0.05, 0.5]);
+                    } elseif ($d == 0.1) {
+                        // vrai cas 0.1 ≈ 0.06 à 0.15
+                        $q->orWhereBetween('degre_alcool', [0.06, 0.15]);
+                    } else {
+                        $q->orWhereBetween('degre_alcool', [$d - 0.1, $d + 0.1]);
+                    }
+                }
+            });
+        }
 
         if (!empty($filters['format'])) {
             $query->whereIn('format', $filters['format']);

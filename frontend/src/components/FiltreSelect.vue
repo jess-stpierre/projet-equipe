@@ -13,7 +13,11 @@
         aria-label="Sélectionner un filtre"
       >
         <option disabled value="">Sélectionner...</option>
-        <option v-for="item in selectionsDisponible" :key="item" :value="item">
+        <option
+          v-for="item in selectionsDisponible"
+          :key="item"
+          :value="Number(item)"
+        >
           {{ item }}
         </option>
       </select>
@@ -73,7 +77,11 @@ export default {
 
   methods: {
     ajouterSelection() {
-      if (this.selectedItem && !this.localValue.includes(this.selectedItem)) {
+      if (
+        this.selectedItem !== null &&
+        this.selectedItem !== undefined &&
+        !this.localValue.includes(this.selectedItem)
+      ) {
         this.localValue.push(this.selectedItem);
         this.emitModifie();
       }

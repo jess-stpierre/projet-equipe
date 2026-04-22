@@ -103,10 +103,7 @@
   />
   <!-- afficher la liste des bouteilles trouvées, et les actions associées -->
   <div class="liste-bouteilles">
-    <div
-      v-for="bouteille in bouteilles"
-      :key="bouteille.id"
-    >
+    <div v-for="bouteille in bouteilles" :key="bouteille.id">
       <div v-if="bouteille.messageAjout" class="bloc-modale-succes">
         {{ bouteille.messageAjout }}
       </div>
@@ -116,7 +113,6 @@
       </div>
 
       <div class="carte-bouteille">
-
         <img :src="bouteille.vin.image_url" class="image-vin" />
 
         <div class="info">
@@ -283,13 +279,7 @@ export default {
       return [...this.filters.degres]
         .map((d) => Number(d))
         .filter((d) => !isNaN(d))
-        .sort((a, b) => a - b)
-        .map((d) =>
-          d.toLocaleString("fr-CA", {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 2,
-          }),
-        );
+        .sort((a, b) => a - b);
     },
   },
   methods: {

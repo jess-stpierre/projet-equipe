@@ -53,7 +53,7 @@
       <div class="info-media">
         <p>Région : {{ vin.region }}</p>
         <p>Cépage : {{ vin.cepage }}</p>
-        <p>Alcool : {{ Number(vin.degre_alcool).toFixed(1) }} %</p>
+        <p>Alcool : {{ Number(vin.degre_alcool) }} %</p>
         <p>Sucre : {{ vin.taux_sucre }}</p>
         <p>Millésime : {{ vin.annee }}</p>
       </div>
@@ -120,6 +120,10 @@ export default {
       if (c.includes("orange")) return "#e67e22";
       if (c.includes("ambré(e)") || c.includes("ambre")) return "#FFBF00";
       if (c.includes("doré(e)") || c.includes("dore")) return "#FFD700";
+      if (c.includes("Brun(e)") || c.includes("brun")) return "#3B2414";
+      if (c.includes("Blanche") || c.includes("blanche")) return "#FFF8E7";
+      if (c.includes("Roux, Rousse") || c.includes("roux, rousse"))
+        return "#8B3A1E";
 
       return "#999";
     },
