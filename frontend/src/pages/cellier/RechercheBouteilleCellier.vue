@@ -12,7 +12,6 @@
       type="text"
       placeholder="Rechercher une bouteille..."
       class="search-input"
-      aria-label="Rechercher une bouteille"
     />
   </div>
 
@@ -73,21 +72,20 @@
         :maxLimit="safeNumber(filters.prix.max)"
       />
 
-      <FourchetteFiltre
+      <FilterSelect
         :key="reinitialiser"
-        v-model="selected.format"
-        :minLimit="safeNumber(filters.format.min)"
-        :maxLimit="safeNumber(filters.format.max)"
         label="Format (ml)"
+        :items="formats"
+        v-model="selected.format"
       />
 
-      <FourchetteFiltre
+      <FilterSelect
         :key="reinitialiser"
-        v-model="selected.degres"
-        :minLimit="safeNumber(filters.degres.min)"
-        :maxLimit="safeNumber(filters.degres.max)"
         label="Degré (%)"
+        :items="degres"
+        v-model="selected.degres"
       />
+
       <AnneeFiltreSelect
         :key="reinitialiser"
         :items="filters.millesimes"
@@ -105,71 +103,58 @@
   />
   <!-- afficher la liste des bouteilles trouvées, et les actions associées -->
   <div class="liste-bouteilles">
-    <div v-for="bouteille in bouteilles" :key="bouteille.id">
+    <div
+      v-for="bouteille in bouteilles"
+      :key="bouteille.id"
+      class="carte-bouteille"
+    >
+      <img :src="bouteille.vin.image_url" class="image-vin" />
+
+      <div class="info">
+        <h3>{{ bouteille.vin.nom }}</h3>
+        <p>Cellier : {{ bouteille.cellier.nom }}</p>
+        <p>Prix : {{ bouteille.vin.prix }}$</p>
+        <p>Quantité : {{ bouteille.quantite }}</p>
+
+        <button
+          @click="modifierQuantiteVin(bouteille.quantite - 1, bouteille.id)"
+          class="btn-qte"
+          :disabled="bouteille.quantite <= 1"
+        >
+          <CircleMinus />
+        </button>
+
+        <button
+          @click="modifierQuantiteVin(bouteille.quantite + 1, bouteille.id)"
+          class="btn-qte"
+        >
+          <CirclePlus />
+        </button>
+      </div>
+      <!-- boutons d'action pour chaque bouteille : Afficher les détails, ajouter à la liste de courses, supprimer -->
+      <div class="bouton-cellier">
+        <button @click="voirDetail(bouteille.id)" class="btn btn-cellier">
+          <Eye />
+        </button>
+
+        <button
+          class="btn btn-cellier"
+          @click="ajouterListeAchats(bouteille.vin.id)"
+        >
+          <ShoppingBasket class="icons" />
+        </button>
+
+        <button @click="ouvrirModale(bouteille.id)" class="btn btn-cellier">
+          <Trash />
+        </button>
+      </div>
+
       <div v-if="bouteille.messageAjout" class="bloc-modale-succes">
         {{ bouteille.messageAjout }}
       </div>
 
       <div v-if="bouteille.messageErreur" class="erreur">
         {{ bouteille.messageErreur }}
-      </div>
-
-      <div class="carte-bouteille">
-        <img
-          :src="bouteille.vin.image_url"
-          class="image-vin"
-          :alt="'Le nom du vin est : ' + bouteille.vin.nom"
-        />
-
-        <div class="info">
-          <h3>{{ bouteille.vin.nom }}</h3>
-          <p>Cellier : {{ bouteille.cellier.nom }}</p>
-          <p>Prix : {{ bouteille.vin.prix }}$</p>
-          <p>Quantité : {{ bouteille.quantite }}</p>
-
-          <button
-            @click="modifierQuantiteVin(bouteille.quantite - 1, bouteille.id)"
-            class="btn-qte"
-            :disabled="bouteille.quantite <= 1"
-            aria-label="Réduire la quantité"
-          >
-            <CircleMinus />
-          </button>
-
-          <button
-            @click="modifierQuantiteVin(bouteille.quantite + 1, bouteille.id)"
-            class="btn-qte"
-            aria-label="Augmenter la quantité"
-          >
-            <CirclePlus />
-          </button>
-        </div>
-        <!-- boutons d'action pour chaque bouteille : Afficher les détails, ajouter à la liste de courses, supprimer -->
-        <div class="bouton-cellier">
-          <button
-            @click="voirDetail(bouteille.id)"
-            class="btn btn-cellier"
-            aria-label="Voir les détails"
-          >
-            <Eye />
-          </button>
-
-          <button
-            class="btn btn-cellier"
-            @click="ajouterListeAchats(bouteille.vin.id)"
-            aria-label="Ajouter à la liste d'achats"
-          >
-            <ShoppingBasket class="icons" />
-          </button>
-
-          <button
-            @click="ouvrirModale(bouteille.id)"
-            class="btn btn-cellier"
-            aria-label="Supprimer"
-          >
-            <Trash />
-          </button>
-        </div>
       </div>
     </div>
   </div>
@@ -244,8 +229,10 @@ export default {
         regions: [],
         cepages: [],
         prix: { min: null, max: null },
-        format: { min: null, max: null },
-        degres: { min: null, max: null },
+
+        format: [],
+        degres: [],
+
         millesimes: [],
         couleur: [],
       },
@@ -254,16 +241,18 @@ export default {
         countries: [],
         regions: [],
         cepages: [],
-        prix: { min: 0, max: 0 },
-        format: { min: 0, max: 0 },
-        degres: { min: 0, max: 0 },
-        millesimes: [],
         couleur: [],
+
+        prix: { min: 0, max: 0 },
+
+        format: [],
+        degres: [],
+
+        millesimes: [],
       },
 
       afficherModale: false,
       idASupprimer: null,
-      reinitialiser: 0,
     };
   },
 
@@ -281,6 +270,26 @@ export default {
     },
   },
 
+  computed: {
+    formats() {
+      return Array.isArray(this.filters.format) ? this.filters.format : [];
+    },
+
+    degres() {
+      if (!Array.isArray(this.filters.degres)) return [];
+
+      return [...this.filters.degres]
+        .map((d) => Number(d))
+        .filter((d) => !isNaN(d))
+        .sort((a, b) => a - b)
+        .map((d) =>
+          d.toLocaleString("fr-CA", {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2,
+          }),
+        );
+    },
+  },
   methods: {
     // fonction utilitaire pour extraire les valeurs min et max d'un tableau de valeurs
     getMinMax(array) {
@@ -331,17 +340,11 @@ export default {
           filters.prix = this.selected.prix;
         }
 
-        if (
-          this.selected.format &&
-          (this.selected.format.min != null || this.selected.format.max != null)
-        ) {
+        if (this.selected.format.length) {
           filters.format = this.selected.format;
         }
 
-        if (
-          this.selected.degres &&
-          (this.selected.degres.min != null || this.selected.degres.max != null)
-        ) {
+        if (this.selected.degres.length) {
           filters.degres = this.selected.degres;
         }
 
@@ -361,16 +364,16 @@ export default {
         // mettre à jour la liste des bouteilles avec les résultats de la recherche
         this.bouteilles = res.data.data || [];
         // mettre à jour les options de filtres disponibles en fonction des résultats de la recherche
+
         if (res.data.filters) {
           this.filters = {
             countries: res.data.filters.countries || [],
             regions: res.data.filters.regions || [],
             cepages: res.data.filters.cepages || [],
             couleur: res.data.filters.couleur || [],
-
             prix: this.getMinMax(res.data.filters.prix),
-            format: this.getMinMax(res.data.filters.formats),
-            degres: this.getMinMax(res.data.filters.degres),
+            format: res.data.filters.format || [],
+            degres: res.data.filters.degres || [],
 
             millesimes: res.data.filters.millesimes || [],
           };
@@ -467,14 +470,15 @@ export default {
         regions: [],
         cepages: [],
         prix: { min: null, max: null },
-        format: { min: null, max: null },
-        degres: { min: null, max: null },
+        format: [],
+        degres: [],
         millesimes: [],
         couleur: [],
-        reinitialiser: this.selected.reinitialiser + 1,
       };
 
       this.search = "";
+      this.reinitialiser++;
+
       this.fetchBouteilles();
     },
   },

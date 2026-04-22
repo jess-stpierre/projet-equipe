@@ -189,14 +189,6 @@ class CellierController extends Controller
             );
         }
 
-        //Filtrer par format 
-        if (!empty($filters['formats'])) {
-            $query->whereHas(
-                'vin',
-                fn($q) =>
-                $q->whereIn('format', $filters['formats'])
-            );
-        }
 
         //filtrer par degre alcool
         if (!empty($filters['degres'])) {
@@ -206,6 +198,12 @@ class CellierController extends Controller
                 $q->whereIn('degre_alcool', $filters['degres'])
             );
         }
+
+
+        if (!empty($filters['format'])) {
+            $query->whereIn('format', $filters['format']);
+        }
+
 
         //filtrer par millesimes
         if (!empty($filters['millesimes'])) {
@@ -244,7 +242,7 @@ class CellierController extends Controller
             'regions' => (clone $vinQuery)->distinct()->pluck('region')->filter()->values(),
             'cepages' => (clone $vinQuery)->distinct()->pluck('cepage')->filter()->values(),
             'prix' => (clone $vinQuery)->distinct()->pluck('prix')->filter()->values(),
-            'formats' => (clone $vinQuery)->distinct()->pluck('format')->filter()->values(),
+            'format' => (clone $vinQuery)->distinct()->pluck('format')->filter()->values(),
             'degres' => (clone $vinQuery)->distinct()->pluck('degre_alcool')->filter()->values(),
             'millesimes' => (clone $vinQuery)->distinct()->pluck('annee')->filter()->values(),
             'couleur' => (clone $vinQuery)->distinct()->pluck('couleur')->filter()->values(),

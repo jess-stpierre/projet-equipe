@@ -49,13 +49,14 @@ export default {
   data() {
     return {
       open: false,
-      localValue: this.modelValue ?? [],
+      localValue: [],
       selectedItem: "",
     };
   },
 
   computed: {
     selectionsDisponible() {
+      if (!Array.isArray(this.items)) return [];
       return this.items.filter((i) => !this.localValue.includes(i));
     },
   },
@@ -65,7 +66,7 @@ export default {
       immediate: true,
       deep: true,
       handler(val) {
-        this.localValue = val ? [...val] : [];
+        this.localValue = Array.isArray(val) ? [...val] : [];
       },
     },
   },
